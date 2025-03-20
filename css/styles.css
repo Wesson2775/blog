@@ -123,10 +123,10 @@ body {
     white-space: nowrap;
     cursor: grab;
     user-select: none;
-    -webkit-overflow-scrolling: touch; /* 移动端平滑滑动 */
+    -webkit-overflow-scrolling: touch;
   }
   .timeline::-webkit-scrollbar {
-    display: none; /* 隐藏滚动条 */
+    display: none;
   }
   .timeline-item {
     display: flex;

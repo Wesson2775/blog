@@ -1,13 +1,13 @@
 title: 我的流体博客
 description: 记录生活与思考
-baseurl: "/blog" # 如果部署在子目录，改为 "/your-repo-name"
-url: "http://zor666.me"
-permalink: /blogs/:year/:month/:day/:title/ # 博文链接格式
+baseurl: "/blog" # 如果部署在子目录，如 /your-repo-name，需修改
+url: "https://wesson2775.github.io"
+permalink: /blogs/:year/:month/:day/:title/
 
 collections:
   fragments:
     output: true
-    permalink: /fragments/:year/:month/:day/:title/ # 随笔链接格式
+    permalink: /fragments/:year/:month/:day/:title/
 
 defaults:
   - scope:

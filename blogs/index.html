@@ -8,28 +8,21 @@ script: |
     const contentArea = document.querySelector('.content-area');
     let isDragging = false, startX, scrollLeft;
 
-    // 拖动开始
     timeline.addEventListener('mousedown', (e) => {
       isDragging = true;
       startX = e.pageX - timeline.offsetLeft;
       scrollLeft = timeline.scrollLeft;
     });
-
-    // 拖动结束
     timeline.addEventListener('mouseup', () => isDragging = false);
     timeline.addEventListener('mouseleave', () => isDragging = false);
-
-    // 拖动中
     timeline.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       e.preventDefault();
       const x = e.pageX - timeline.offsetLeft;
-      const walk = (x - startX) * 2; // 滑动速度
+      const walk = (x - startX) * 2;
       timeline.scrollLeft = scrollLeft - walk;
       updateScale();
     });
-
-    // 触控支持
     timeline.addEventListener('touchstart', (e) => {
       isDragging = true;
       startX = e.touches[0].pageX - timeline.offsetLeft;
@@ -44,7 +37,6 @@ script: |
       updateScale();
     });
 
-    // 放大效果
     function updateScale() {
       const timelineRect = timeline.getBoundingClientRect();
       const center = timelineRect.left + timelineRect.width / 2;
@@ -52,12 +44,11 @@ script: |
         const itemRect = item.getBoundingClientRect();
         const itemCenter = itemRect.left + itemRect.width / 2;
         const distance = Math.abs(center - itemCenter);
-        const scale = Math.max(1, 1.5 - distance / 300); // 最大放大1.5倍
+        const scale = Math.max(1, 1.5 - distance / 300);
         item.style.transform = `scale(${scale})`;
       });
     }
 
-    // 点击显示内容
     items.forEach(item => {
       item.addEventListener('click', () => {
         const url = item.dataset.url;
@@ -77,7 +68,6 @@ script: |
       });
     });
 
-    // 初始放大效果
     timeline.addEventListener('scroll', updateScale);
     updateScale();
   });
