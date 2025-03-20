@@ -7,6 +7,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- 其余内容不变 -->
+  <div class="nav">
+    <div class="blog-name">
+      <span class="default">我的流体博客</span>
+      <span class="hover-text">欢迎体验</span>
+    </div>
+    <div class="nav-links">
+      <a href="{{ '/' | relative_url }}">随笔</a>
+      <a href="{{ '/blogs' | relative_url }}">博文</a>
+      <a href="{{ '/about' | relative_url }}">关于</a>
+    </div>
+    <div class="tail">记录生活点滴</div>
+  </div>
+  <div class="profile">
+    <img src="{{ '/assets/avatar.jpg' | relative_url }}" alt="头像">
+    <h2>关于我</h2>
+    <p>热爱写作，记录生活。</p>
+    <p>example@email.com</p>
+  </div>
+  <div class="content">
+    {{ content }}
+  </div>
+  <script>
+    {{ page.script }}
+  </script>
 </body>
 </html>

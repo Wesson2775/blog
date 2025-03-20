@@ -1,7 +1,7 @@
 title: 我的流体博客
 description: 记录生活与思考
-baseurl: "/blog" # 如果部署在子目录，如 /your-repo-name，需修改
-url: "https://wesson2775.github.io"
+baseurl: "/blog" # 你的子目录
+url: "https://wesson2775.github.io" # 你的 GitHub Pages 主域名
 permalink: /blogs/:year/:month/:day/:title/
 
 collections:
