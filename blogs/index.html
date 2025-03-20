@@ -22,15 +22,16 @@ script: |
         const itemRect = item.getBoundingClientRect();
         const itemCenter = itemRect.left + itemRect.width / 2 - rect.left;
         const distance = Math.abs(mouseX - itemCenter);
-        const scale = Math.max(0.8, 1.5 - distance / 200); // 最大1.5倍，最小0.8倍
-        item.querySelector('span').style.transform = `scale(${scale})`;
+        // 使用二次函数模拟曲线效果，最大1.5倍，最小0.8倍
+        const scale = Math.max(0.8, 1.5 - Math.pow(distance / 200, 2));
+        item.style.transform = `scale(${scale})`;
       });
     });
 
     // 鼠标离开时恢复默认大小
     timeline.addEventListener('mouseleave', () => {
       items.forEach(item => {
-        item.querySelector('span').style.transform = 'scale(1)';
+        item.style.transform = 'scale(1)';
       });
     });
 

@@ -132,6 +132,7 @@ body {
     align-items: center;
     position: relative;
     padding: 10px 20px;
+    transition: transform 0.2s ease; /* 平滑过渡 */
   }
   .timeline-item .date {
     font-size: 0.9em;
@@ -142,9 +143,8 @@ body {
     font-size: 1.1em;
     color: #333;
     cursor: pointer;
-    transition: transform 0.2s ease; /* 平滑过渡 */
   }
-  .timeline-item span:hover {
+  .timeline-item:hover span {
     color: #007bff;
   }
   /* 时间轴线和标记点 */
