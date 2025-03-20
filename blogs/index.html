@@ -10,7 +10,28 @@ script: |
     // 滚轮控制左右滑动
     timeline.addEventListener('wheel', (e) => {
       e.preventDefault();
-      timeline.scrollLeft += e.deltaY * 2; // 滚轮上下转为左右滑动
+      timeline.scrollLeft += e.deltaY * 2;
+    });
+
+    // Dock 栏效果
+    timeline.addEventListener('mousemove', (e) => {
+      const rect = timeline.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+
+      items.forEach(item => {
+        const itemRect = item.getBoundingClientRect();
+        const itemCenter = itemRect.left + itemRect.width / 2 - rect.left;
+        const distance = Math.abs(mouseX - itemCenter);
+        const scale = Math.max(0.8, 1.5 - distance / 200); // 最大1.5倍，最小0.8倍
+        item.querySelector('span').style.transform = `scale(${scale})`;
+      });
+    });
+
+    // 鼠标离开时恢复默认大小
+    timeline.addEventListener('mouseleave', () => {
+      items.forEach(item => {
+        item.querySelector('span').style.transform = 'scale(1)';
+      });
     });
 
     // 点击显示内容
