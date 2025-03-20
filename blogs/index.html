@@ -1,94 +1,21 @@
 ---
 layout: default
 title: 博文
-script: |
-  document.addEventListener('DOMContentLoaded', () => {
-    const timeline = document.querySelector('.timeline');
-    const items = document.querySelectorAll('.timeline-item');
-    const contentArea = document.querySelector('.article-content');
-
-    // 滚轮控制时间轴滑动
-    timeline.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      timeline.scrollTop += e.deltaY * 0.5;
-    });
-
-    // 粒子效果（简单实现）
-    const particleContainer = document.querySelector('.timeline-wrapper');
-    for (let i = 0; i < 50; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      particle.style.animationDelay = `${Math.random() * 5}s`;
-      particleContainer.appendChild(particle);
-    }
-
-    // 点击显示内容和爆炸效果
-    items.forEach(item => {
-      item.addEventListener('click', (e) => {
-        const rect = item.getBoundingClientRect();
-        for (let i = 0; i < 10; i++) {
-          const burst = document.createElement('div');
-          burst.className = 'burst';
-          burst.style.left = `${e.clientX}px`;
-          burst.style.top = `${e.clientY}px`;
-          document.body.appendChild(burst);
-          setTimeout(() => burst.remove(), 500);
-        }
-        const url = item.dataset.url;
-        fetch(url)
-          .then(response => response.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const content = doc.querySelector('.post-content').innerHTML;
-            contentArea.innerHTML = `
-              <h1>${item.querySelector('.title-text').textContent}</h1>
-              <div class="date">${item.querySelector('.date').textContent}</div>
-              <div class="post-content">${content}</div>
-              <svg class="progress-ring" width="60" height="60">
-                <circle class="progress-ring-circle" cx="30" cy="30" r="20" />
-              </svg>
-            `;
-            updateProgressRing();
-          });
-      });
-    });
-
-    // 更新进度环
-    function updateProgressRing() {
-      const content = contentArea.querySelector('.post-content');
-      const circle = contentArea.querySelector('.progress-ring-circle');
-      const circumference = 2 * Math.PI * 20;
-      circle.style.strokeDasharray = circumference;
-      circle.style.strokeDashoffset = circumference;
-      contentArea.addEventListener('scroll', () => {
-        const scrollTop = contentArea.scrollTop;
-        const scrollHeight = content.scrollHeight - contentArea.clientHeight;
-        const percent = (scrollTop / scrollHeight) * 100;
-        const offset = circumference - (percent / 100) * circumference;
-        circle.style.strokeDashoffset = offset;
-      });
-    }
-  });
 ---
 <div class="blog-container">
   <div class="timeline-wrapper">
     <div class="timeline">
       {% for post in site.posts %}
-        <div class="timeline-item" 
-             data-url="{{ post.url | relative_url }}"
-             data-summary="{{ post.content | strip_html | truncate: 100 }}">
+        <div class="timeline-item">
           <div class="date">{{ post.date | date: "%Y-%m-%d" }}</div>
           <div class="title">
-            <span class="icon">⚡</span> <!-- 可根据分类替换 -->
             <span class="title-text">{{ post.title }}</span>
-            <div class="flip-back">{{ post.content | strip_html | truncate: 100 }}</div>
           </div>
         </div>
       {% endfor %}
     </div>
   </div>
-  <div class="article-content"></div>
+  <div class="article-content">
+    <p>请选择一篇博文查看内容。</p>
+  </div>
 </div>
