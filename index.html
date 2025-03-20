@@ -3,11 +3,15 @@ layout: default
 title: 随笔
 ---
 <div id="essays" class="essay-list">
-  {% for fragment in site.fragments %}
-    <div class="card">
-      <h3><a href="{{ fragment.url | relative_url }}">{{ fragment.title }}</a></h3>
-      <p>{{ fragment.content | strip_html | truncate: 100 }}</p>
-      <div class="date">{{ fragment.date | date: "%Y-%m-%d" }}</div>
-    </div>
-  {% endfor %}
+  {% if site.fragments.size > 0 %}
+    {% for fragment in site.fragments %}
+      <div class="card">
+        <h3><a href="{{ fragment.url | relative_url }}">{{ fragment.title }}</a></h3>
+        <p>{{ fragment.content | strip_html | truncate: 100 }}</p>
+        <div class="date">{{ fragment.date | date: "%Y-%m-%d" }}</div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>暂无随笔内容，请添加至 _fragments 文件夹。</p>
+  {% endif %}
 </div>
