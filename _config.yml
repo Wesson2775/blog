@@ -1,0 +1,22 @@
+title: 我的流体博客
+description: 记录生活与思考
+baseurl: "" # 如果部署在子目录，改为 "/your-repo-name"
+url: "https://your-username.github.io"
+permalink: /blogs/:year/:month/:day/:title/ # 博文链接格式
+
+collections:
+  fragments:
+    output: true
+    permalink: /fragments/:year/:month/:day/:title/ # 随笔链接格式
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "fragments"
+    values:
+      layout: "fragment"

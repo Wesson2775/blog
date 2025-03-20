@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    hello world!
-</body>
-</html>
+---
+layout: default
+title: 随笔
+---
+<div id="essays" class="essay-list">
+  {% for fragment in site.fragments %}
+    <div class="card">
+      <h3><a href="{{ fragment.url | relative_url }}">{{ fragment.title }}</a></h3>
+      <p>{{ fragment.content | strip_html | truncate: 100 }}</p>
+      <div class="date">{{ fragment.date | date: "%Y-%m-%d" }}</div>
+    </div>
+  {% endfor %}
+</div>

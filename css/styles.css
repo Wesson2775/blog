@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 导航栏 */
+  .nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav .blog-name {
+    position: relative;
+    font-size: 1.5em;
+    font-weight: bold;
+    overflow: hidden;
+    height: 1.2em;
+  }
+  .nav .blog-name span {
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .nav .blog-name .default {
+    transform: translateY(0);
+  }
+  .nav .blog-name .hover-text {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translateY(0);
+  }
+  .nav .blog-name:hover .default {
+    transform: translateY(-100%);
+  }
+  .nav .blog-name:hover .hover-text {
+    transform: translateY(-100%);
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  .nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+  }
+  .nav a:hover {
+    color: #ddd;
+  }
+  .nav .tail {
+    font-size: 0.9em;
+    color: #ccc;
+  }
+  
+  /* 个人简介栏 */
+  .profile {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 150px;
+    height: calc(100vh - 60px);
+    background: #f0f0f0;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 5;
+  }
+  .profile img {
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  .profile h2 {
+    font-size: 1.2em;
+    margin: 0 0 10px 0;
+  }
+  .profile p {
+    font-size: 0.9em;
+    margin: 0 0 5px 0;
+  }
+  
+  /* 内容区 */
+  .content {
+    margin-left: 150px;
+    padding: 80px 20px 20px 20px;
+    height: 100vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  
+  /* 随笔 - 垂直滑动 */
+  .essay-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* 博文 - 瀑布流 */
+  .blog-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+  }
+  
+  /* 通用卡片样式 */
+  .card, .blog-card {
+    background: linear-gradient(135deg, #ffffff, #f9f9f9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+  }
+  .card:hover, .blog-card:hover {
+    transform: scale(1.05);
+  }
+  .card h1, .card h3, .blog-card h3 {
+    margin: 0 0 10px 0;
+  }
+  .card p, .blog-card p {
+    margin: 0 0 10px 0;
+    color: #777;
+  }
+  .card .date, .blog-card .date {
+    font-size: 0.85em;
+    color: #aaa;
+  }
+  
+  /* 单篇内容 */
+  .post-content, .fragment-content {
+    line-height: 1.6;
+  }
