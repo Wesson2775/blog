@@ -102,19 +102,17 @@ body {
     gap: 20px;
   }
   
-  /* 博文 - 竖向时间轴 */
-  .content-area {
-    margin-bottom: 20px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  /* 博文 - 竖向时间轴和内容 */
+  .blog-container {
+    display: flex;
+    height: calc(100vh - 80px); /* 留出导航栏空间 */
   }
   .timeline-wrapper {
-    width: 100%;
-    height: calc(100% - 100px); /* 留出内容区空间 */
+    width: 300px; /* 时间轴固定宽度 */
+    height: 100%;
     overflow: hidden;
     position: relative;
+    background: #f9f9f9;
   }
   .timeline {
     display: flex;
@@ -130,21 +128,22 @@ body {
   }
   .timeline-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
     position: relative;
-    width: 100%;
-    max-width: 600px; /* 限制宽度 */
+    width: 80%;
     transition: transform 0.2s ease;
   }
   .timeline-item .date {
     font-size: 0.9em;
     color: #333;
-    background: #f0f0f0;
+    background: #fff;
     padding: 8px 12px;
     border-radius: 8px;
-    margin-right: 20px;
+    margin-bottom: 10px;
     text-align: center;
-    width: 100px; /* 固定宽度 */
+    width: 100px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
   .timeline-item .title {
     font-size: 1.1em;
@@ -154,7 +153,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     cursor: pointer;
-    flex-grow: 1;
+    width: 200px;
+    text-align: center;
   }
   .timeline-item .title:hover {
     color: #007bff;
@@ -182,6 +182,15 @@ body {
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
+  }
+  
+  /* 文章内容区 */
+  .article-content {
+    flex-grow: 1;
+    padding: 20px;
+    background: #fff;
+    overflow-y: auto;
+    border-left: 1px solid #eee;
   }
   
   /* 通用卡片样式 */
