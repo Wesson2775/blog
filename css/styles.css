@@ -102,32 +102,79 @@ body {
     gap: 20px;
   }
   
-  /* 博文 - 瀑布流 */
-  .blog-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
+  /* 博文 - 时间轴 */
+  .content-area {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .timeline-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+  .timeline {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding: 20px 0;
+    gap: 20px;
+    white-space: nowrap;
+    cursor: grab;
+    user-select: none;
+    -webkit-overflow-scrolling: touch; /* 移动端平滑滑动 */
+  }
+  .timeline::-webkit-scrollbar {
+    display: none; /* 隐藏滚动条 */
+  }
+  .timeline-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    transform-origin: center;
+  }
+  .timeline-item:hover {
+    background: #f9f9f9;
+  }
+  .timeline-item .date {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-right: 15px;
+    min-width: 80px;
+  }
+  .timeline-item span {
+    font-size: 1.1em;
+    color: #333;
+    cursor: pointer;
+  }
+  .timeline-item span:hover {
+    color: #007bff;
   }
   
   /* 通用卡片样式 */
-  .card, .blog-card {
+  .card {
     background: linear-gradient(135deg, #ffffff, #f9f9f9);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s;
   }
-  .card:hover, .blog-card:hover {
+  .card:hover {
     transform: scale(1.05);
   }
-  .card h1, .card h3, .blog-card h3 {
+  .card h1, .card h3 {
     margin: 0 0 10px 0;
   }
-  .card p, .blog-card p {
+  .card p {
     margin: 0 0 10px 0;
     color: #777;
   }
-  .card .date, .blog-card .date {
+  .card .date {
     font-size: 0.85em;
     color: #aaa;
   }
