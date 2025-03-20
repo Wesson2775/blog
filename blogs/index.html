@@ -1,12 +1,43 @@
 ---
 layout: default
 title: 博文
+script: |
+  document.addEventListener('DOMContentLoaded', () => {
+    const timeline = document.querySelector('.timeline');
+    const items = document.querySelectorAll('.timeline-item');
+    const contentArea = document.querySelector('.article-content');
+
+    // 滚轮控制时间轴滑动
+    timeline.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      timeline.scrollTop += e.deltaY * 0.5;
+    });
+
+    // 点击显示内容
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const url = item.dataset.url;
+        fetch(url)
+          .then(response => response.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const content = doc.querySelector('.post-content').innerHTML;
+            contentArea.innerHTML = `
+              <h1>${item.querySelector('.title-text').textContent}</h1>
+              <div class="date">${item.querySelector('.date').textContent}</div>
+              <div class="post-content">${content}</div>
+            `;
+          });
+      });
+    });
+  });
 ---
 <div class="blog-container">
   <div class="timeline-wrapper">
     <div class="timeline">
       {% for post in site.posts %}
-        <div class="timeline-item">
+        <div class="timeline-item" data-url="{{ post.url | relative_url }}">
           <div class="date">{{ post.date | date: "%Y-%m-%d" }}</div>
           <div class="title">
             <span class="title-text">{{ post.title }}</span>
