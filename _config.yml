@@ -1,7 +1,7 @@
 title: 我的流体博客
 description: 记录生活与思考
-baseurl: "" # 如果部署在子目录，改为 "/your-repo-name"
-url: "/blog"
+baseurl: "/blog" # 如果部署在子目录，改为 "/your-repo-name"
+url: "http://zor666.me"
 permalink: /blogs/:year/:month/:day/:title/ # 博文链接格式
 
 collections:
