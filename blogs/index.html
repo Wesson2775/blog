@@ -7,34 +7,13 @@ script: |
     const items = document.querySelectorAll('.timeline-item');
     const contentArea = document.querySelector('.article-content');
 
-    // 滚轮控制上下滑动
+    // 滚轮控制时间轴滑动
     timeline.addEventListener('wheel', (e) => {
       e.preventDefault();
       timeline.scrollTop += e.deltaY * 0.5;
     });
 
-    // Dock 栏效果
-    timeline.addEventListener('mousemove', (e) => {
-      const rect = timeline.getBoundingClientRect();
-      const mouseY = e.clientY - rect.top;
-
-      items.forEach(item => {
-        const itemRect = item.getBoundingClientRect();
-        const itemCenter = itemRect.top + itemRect.height / 2 - rect.top;
-        const distance = Math.abs(mouseY - itemCenter);
-        const scale = Math.max(0.8, 1.5 - Math.pow(distance / 100, 2));
-        item.style.transform = `scale(${scale})`;
-      });
-    });
-
-    // 鼠标离开时恢复默认大小
-    timeline.addEventListener('mouseleave', () => {
-      items.forEach(item => {
-        item.style.transform = 'scale(1)';
-      });
-    });
-
-    // 点击显示内容
+    // 点击显示内容并更新进度条
     items.forEach(item => {
       item.addEventListener('click', () => {
         const url = item.dataset.url;
@@ -45,22 +24,43 @@ script: |
             const doc = parser.parseFromString(html, 'text/html');
             const content = doc.querySelector('.post-content').innerHTML;
             contentArea.innerHTML = `
-              <h1>${item.querySelector('.title').textContent}</h1>
+              <h1>${item.querySelector('.title-text').textContent}</h1>
               <div class="date">${item.querySelector('.date').textContent}</div>
+              <div class="summary">${item.dataset.summary}</div>
               <div class="post-content">${content}</div>
+              <div class="progress-bar"><div class="progress"></div></div>
             `;
+            updateProgress();
           });
       });
     });
+
+    // 更新进度条
+    function updateProgress() {
+      const content = contentArea.querySelector('.post-content');
+      const progress = contentArea.querySelector('.progress');
+      contentArea.addEventListener('scroll', () => {
+        const scrollTop = contentArea.scrollTop;
+        const scrollHeight = content.scrollHeight - contentArea.clientHeight;
+        const percent = (scrollTop / scrollHeight) * 100;
+        progress.style.width = `${percent}%`;
+      });
+    }
   });
 ---
 <div class="blog-container">
   <div class="timeline-wrapper">
     <div class="timeline">
       {% for post in site.posts %}
-        <div class="timeline-item" data-url="{{ post.url | relative_url }}">
+        <div class="timeline-item" 
+             data-url="{{ post.url | relative_url }}"
+             data-summary="{{ post.content | strip_html | truncate: 100 }}">
           <div class="date">{{ post.date | date: "%Y-%m-%d" }}</div>
-          <span class="title">{{ post.title }}</span>
+          <div class="title">
+            <span class="icon">📝</span> <!-- 图标可根据分类替换 -->
+            <span class="title-text">{{ post.title }}</span>
+            <div class="preview">{{ post.content | strip_html | truncate: 100 }}</div>
+          </div>
         </div>
       {% endfor %}
     </div>
